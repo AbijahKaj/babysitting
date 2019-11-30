@@ -20,6 +20,7 @@ $(() => {
                 document.location = "dashboard.php"
             }
         })
+        return true
     })
     $("#signin").submit((e) => {
         e.preventDefault()
@@ -35,5 +36,6 @@ $(() => {
                 document.location = "dashboard.php"
             }
         })
+        return true
     })
 })

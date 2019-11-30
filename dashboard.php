@@ -7,8 +7,11 @@ if (!isset($_SESSION['user'])) {
 include_once 'class/User.php';;
 $user = new User();
 if(isset($_GET['logout'])){
-    
+    $user->signoutUser();
+    header('Location: index.php');
+    die();
 }
+$_user = $user->getCurrentUser();
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +50,7 @@ if(isset($_GET['logout'])){
 
         <div class="container" id="first">
             <div class="jumbotron">
-                <h1 class="display-4">Welcome back </h1>
+                <h1 class="display-4">Welcome back, <?= $_user['name'] ?></h1>
                 <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
                 <hr class="my-4">
                 <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
