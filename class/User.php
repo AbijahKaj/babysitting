@@ -111,6 +111,17 @@ class User {
             return $result;
         }
     }
+    public function getAppointments() {
+        if (!isset($_SESSION['user'])) {
+            return null;
+        }
+        $id = (int) base64_decode($_SESSION['user']['id']);
+        $query = "SELECT * FROM appointments WHERE parent_id=$id";
+        $result = $this->dbo->query($query)->fetchAll();
+        if (count($result) > 0) {
+            return $result;
+        }
+    }
     /**
      * A simple way to verify and save data for User Registration
      * @version 1.1

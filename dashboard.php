@@ -14,6 +14,7 @@ if (isset($_GET['logout'])) {
 }
 $_user = $user->getCurrentUser();
 $children = $user->getChildren();
+//$appointments = 
 ?>
 
 <!DOCTYPE html>
