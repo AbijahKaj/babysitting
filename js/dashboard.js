@@ -5,8 +5,8 @@
  */
 
 
-$(document).ready(function(){
-   $('[data-toggle="offcanvas"]').click(function(){
-       $("#navigation").toggleClass("hidden-xs");
-   });
-});
+$(() => {
+    $('.datepicker').datepicker({
+        startDate: '-3d'
+    })
+})

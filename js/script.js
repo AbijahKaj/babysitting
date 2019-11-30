@@ -18,9 +18,9 @@ $(() => {
         }).done((data) => {
             if(data.status == "1"){
                 document.location = "dashboard.php"
+                return true
             }
         })
-        return true
     })
     $("#signin").submit((e) => {
         e.preventDefault()
@@ -34,8 +34,9 @@ $(() => {
         }).done((data) => {
             if(data.status == "1"){
                 document.location = "dashboard.php"
+                return true
             }
         })
-        return true
+        
     })
 })

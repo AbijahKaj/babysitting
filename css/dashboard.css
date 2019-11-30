@@ -1,3 +1,12 @@
-#first{
+.first{
     padding-top: 30px;
+}
+.btnSubmit{
+    font-weight: 600;
+    width: 50%;
+    color: #282726;
+    background-color: #fcd;
+    border: none;
+    border-radius: 1.5rem;
+    padding:2%;
 }
