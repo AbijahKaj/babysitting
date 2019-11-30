@@ -13,6 +13,7 @@ if (isset($_GET['logout'])) {
     die();
 }
 $_user = $user->getCurrentUser();
+$children = $user->getChildren();
 ?>
 
 <!DOCTYPE html>
@@ -74,36 +75,49 @@ $_user = $user->getCurrentUser();
                     <div class="col-md-6 first">
                         <form class="form" method="POST" id="appointment">
                             <div class="form-group">
-                                <div class="input-group date" data-provide="datepicker">
-                                    <input type="text" name="date" class="form-control" placeholder="Select the date">
-                                    <div class="input-group-addon">
-                                        <span class="glyphicon glyphicon-th"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
                                 <select class="custom-select" name="child">
-                                    <option value="1">Child 1</option>
-                                    <option value="2">Child 2</option>
-                                    <option value="3">Child 3</option>
+                                    <?php  foreach ($children as $child) {
+                                        ?>
+                                    <option value="<?= $child['id'] ?>"><?= $child['name'] ?></option>
+                                    <?php
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <select class="custom-select" name="service">
-                                    <option value="1">Day service</option>
-                                    <option value="2">Evening service</option>
-                                    <option value="3">Night service</option>
+                                    <option value="1">Morning service</option>
+                                    <option value="2">Day service</option>
+                                    <option value="3">Evening service</option>
+                                    <option value="4">Night service</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <input type="submit" id="btnSignup" class="btnSubmit" value="Add an appointment" />
+                                <input type="text" name="hours" class="form-control" placeholder="How many hours?" value="" />
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" id="btnAppoint" class="btnSubmit" value="Add an appointment" />
                             </div>
                         </form>
                     </div>
                 </div>
+
+
                 <div class="tab-pane fade" id="child">
-                    <p>Messages tab content ...</p>
+                    <div class="col-md-6 first">
+                        <form class="form" method="POST" id="child-form">
+                            <div class="form-group">
+                                <input type="text" name="name" class="form-control" placeholder="Name of your child" value="" />
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="age" class="form-control" placeholder="Age of your child" value="" />
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" id="btnChild" class="btnSubmit" value="Children" />
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -6,7 +6,35 @@
 
 
 $(() => {
-    $('.datepicker').datepicker({
-        startDate: '-3d'
+    $("#appointment").submit((e) => {
+        e.preventDefault()
+        var data = $("#appointment").serialize()
+        $.ajax({
+            method: "POST",
+            url: "ajax.php?action=add-appointment",
+            data: data,
+            cache: false,
+            dataType: 'json'
+        }).done((data) => {
+            if (data.status == "1") {
+                $("#appointment")[0].reset();
+            }
+        })
+    })
+    
+    $("#child-form").submit((e) => {
+        e.preventDefault()
+        var data = $("#child-form").serialize()
+        $.ajax({
+            method: "POST",
+            url: "ajax.php?action=add-child",
+            data: data,
+            cache: false,
+            dataType: 'json'
+        }).done((data) => {
+            if (data.status == "1") {
+                $("#child-form")[0].reset();
+            }
+        })
     })
 })

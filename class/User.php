@@ -100,7 +100,17 @@ class User {
             return $result[0];
         }
     }
-
+    public function getChildren() {
+        if (!isset($_SESSION['user'])) {
+            return null;
+        }
+        $id = (int) base64_decode($_SESSION['user']['id']);
+        $query = "SELECT * FROM children WHERE parent_id=$id";
+        $result = $this->dbo->query($query)->fetchAll();
+        if (count($result) > 0) {
+            return $result;
+        }
+    }
     /**
      * A simple way to verify and save data for User Registration
      * @version 1.1
