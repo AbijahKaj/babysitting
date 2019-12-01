@@ -14,7 +14,7 @@
             <h2 class="text-center title text-white">Welcome to our babysitting service</h2>
             <div class="row">
                 <div class="col-md-6 login-form-1">
-                    <h3>Login Form</h3>
+                    <h3>Login</h3>
                     <form class="form" id="signin">
                         <div class="form-group">
                             <input type="text" name="email" class="form-control" placeholder="Your Email *" value="" />

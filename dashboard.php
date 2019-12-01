@@ -5,7 +5,7 @@ if (!isset($_SESSION['user'])) {
     die();
 }
 include_once 'class/User.php';
-;
+include_once 'class/Appointment.php';
 $user = new User();
 if (isset($_GET['logout'])) {
     $user->signoutUser();
@@ -14,7 +14,7 @@ if (isset($_GET['logout'])) {
 }
 $_user = $user->getCurrentUser();
 $children = $user->getChildren();
-//$appointments = 
+$appointments = $user->getAppointments();
 ?>
 
 <!DOCTYPE html>
@@ -64,12 +64,63 @@ $children = $user->getChildren();
             <div class="tab-content">
                 <div class="tab-pane fade show active" id="overview">
                     <div class="container first">
-                        <div class="jumbotron">
-                            <h1 class="display-4">Welcome back, <?= $_user['name'] ?>!</h1>
-                            <p class="lead">Looks like you have no appointment yet!</p>
-                            <hr class="my-4">
-                            <p>This is a place where you'll be seeing all your appointments and monitor them in one place, to order a babysitting service please <i>create an appointment.</i></p>
-                        </div>
+                        <?php if (empty($appointments)) { ?>
+                            <div class="jumbotron">
+                                <h1 class="display-4">Welcome back, <?= $_user['name'] ?>!</h1>
+                                <p class="lead">Looks like you have no appointment yet!</p>
+                                <hr class="my-4">
+                                <p>This is a place where you'll be seeing all your appointments and monitor them in one place, to order a babysitting service please <i>create an appointment.</i></p>
+                            </div>
+                            <?php
+                        } else {
+                            ?>
+                        <h2 class="h3">Your appointments</h2>
+                            <div class="list-group col-md-8">
+                                <?php
+                                foreach ($appointments as $appointment) {
+                                    ?>
+                                    <div class="list-group-item col-md-12">
+                                        <span class="col-md-4">
+                                            <?= $appointment['child'] ?>
+                                        </span>
+                                        <span class="col-md-5">
+                                            <i><?= $appointment['price'] ?>ugx</i>
+                                        </span>
+                                        <span class="col-md-5">
+                                            Created on: <b><?= date("d-m-Y", $appointment['created']) ?></b>
+                                        </span>
+                                        <span class="col-md-5">
+                                            Status: <i class=""><?= Appointment::getStatus($appointment['status']) ?></i>
+                                        </span>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                            <?php
+                        }
+                        if(!empty($children)) {
+                            ?>
+                        <h2 class="h3 first">Your Children</h2>
+                            <div class="list-group col-md-8">
+                                <?php
+                                foreach ($children as $child) {
+                                    ?>
+                                    <div class="list-group-item col-md-12">
+                                        <span class="col-md-4">
+                                            <?= $child['name'] ?>
+                                        </span>
+                                        <span class="col-md-5">
+                                            <i><?= $child['age'] ?> years old</i>
+                                        </span>
+                                    </div>
+                                    <?php
+                                }
+                                ?>
+                            </div>
+                            <?php
+                        }
+                        ?>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="appoint">
@@ -77,10 +128,10 @@ $children = $user->getChildren();
                         <form class="form" method="POST" id="appointment">
                             <div class="form-group">
                                 <select class="custom-select" name="child">
-                                    <?php  foreach ($children as $child) {
+                                    <?php foreach ($children as $child) {
                                         ?>
-                                    <option value="<?= $child['id'] ?>"><?= $child['name'] ?></option>
-                                    <?php
+                                        <option value="<?= $child['id'] ?>"><?= $child['name'] ?></option>
+                                        <?php
                                     }
                                     ?>
                                 </select>
@@ -115,7 +166,7 @@ $children = $user->getChildren();
                                 <input type="text" name="age" class="form-control" placeholder="Age of your child" value="" />
                             </div>
                             <div class="form-group">
-                                <input type="submit" id="btnChild" class="btnSubmit" value="Children" />
+                                <input type="submit" id="btnChild" class="btnSubmit" value="Add a child" />
                             </div>
                         </form>
                     </div>

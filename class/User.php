@@ -116,11 +116,12 @@ class User {
             return null;
         }
         $id = (int) base64_decode($_SESSION['user']['id']);
-        $query = "SELECT * FROM appointments WHERE parent_id=$id";
+        $query = "SELECT app.id id, children.name child, app.price price, app.time created, app.status status FROM `appointments` app LEFT JOIN `children` children ON app.`child_id` = children.`id` WHERE app.parent_id = $id";
         $result = $this->dbo->query($query)->fetchAll();
         if (count($result) > 0) {
             return $result;
         }
+        return FALSE;
     }
     /**
      * A simple way to verify and save data for User Registration

@@ -64,4 +64,20 @@ class Appointment{
                 break;
         }
     }
+    public static function getStatus($status) {
+        switch ($status) {
+            case 1:
+                return "Pending";
+                break;
+            case 2:
+                return "Accepted";
+                break;
+            case 3:
+                return "Declined";
+                break;
+            default:
+                return "Unknown";
+                break;
+        }
+    }
 }

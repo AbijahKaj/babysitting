@@ -18,6 +18,7 @@ $(() => {
         }).done((data) => {
             if (data.status == "1") {
                 $("#appointment")[0].reset();
+                location.reload();
             }
         })
     })
@@ -34,6 +35,7 @@ $(() => {
         }).done((data) => {
             if (data.status == "1") {
                 $("#child-form")[0].reset();
+                location.reload();
             }
         })
     })
